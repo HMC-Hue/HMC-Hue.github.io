@@ -223,6 +223,22 @@
   .hl-card strong { font-size: 14px; }
   .hl-card p { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
 
+  /* ===== 鼠标跟随光晕（仅鼠标设备、非减少动效时由 JS 启用）===== */
+  .hero { position: relative; overflow: hidden; }
+  .hero .container { position: relative; z-index: 1; }
+  .hero-cursor {
+    position: absolute; left: 50%; top: 30%;
+    width: 520px; height: 520px; border-radius: 50%;
+    pointer-events: none; z-index: 0;
+    background: radial-gradient(circle, rgba(var(--accent-rgb),0.16) 0%, rgba(var(--accent2-rgb),0.08) 40%, transparent 68%);
+    transform: translate(-50%, -50%);
+    opacity: 0; transition: opacity .45s ease; will-change: left, top;
+  }
+  .hero-cursor.on { opacity: 1; }
+
+  /* ===== 项目卡片 3D 倾斜（JS 控制）===== */
+  .project { transform-style: preserve-3d; will-change: transform; }
+
   /* ===== 新增板块响应式 ===== */
   @media (max-width: 640px) {
     .tl-item { grid-template-columns: 24px 1fr; }
@@ -505,6 +521,59 @@
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
     els.forEach(function (el) { io.observe(el); });
+  })();
+
+  // 鼠标跟随光晕 + 项目卡片 3D 倾斜：仅鼠标设备且未开启减少动效时启用
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var fine = window.matchMedia('(pointer: fine)').matches;
+    if (reduce || !fine) return;
+
+    // 首屏跟随光晕
+    var hero = document.querySelector('.hero');
+    var cursor = document.createElement('div');
+    cursor.className = 'hero-cursor';
+    hero.appendChild(cursor);
+    var glowTick = false;
+    hero.addEventListener('mousemove', function (e) {
+      var r = hero.getBoundingClientRect();
+      var gx = e.clientX - r.left;
+      var gy = e.clientY - r.top;
+      if (!glowTick) {
+        glowTick = true;
+        requestAnimationFrame(function () {
+          cursor.style.left = gx + 'px';
+          cursor.style.top = gy + 'px';
+          glowTick = false;
+        });
+      }
+      cursor.classList.add('on');
+    });
+    hero.addEventListener('mouseleave', function () { cursor.classList.remove('on'); });
+
+    // 项目卡片 3D 倾斜
+    document.querySelectorAll('.project').forEach(function (card) {
+      var tiltTick = false;
+      card.addEventListener('mousemove', function (e) {
+        var r = card.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width;
+        var py = (e.clientY - r.top) / r.height;
+        var ry = (px - 0.5) * 10;
+        var rx = (0.5 - py) * 10;
+        if (!tiltTick) {
+          tiltTick = true;
+          requestAnimationFrame(function () {
+            card.style.transition = 'none';
+            card.style.transform = 'perspective(800px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
+            tiltTick = false;
+          });
+        }
+      });
+      card.addEventListener('mouseleave', function () {
+        card.style.transition = '';
+        card.style.transform = '';
+      });
+    });
   })();
 </script>
 
