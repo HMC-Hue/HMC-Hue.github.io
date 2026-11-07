@@ -186,6 +186,43 @@
 
   footer { text-align: center; padding: 40px 0; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); }
 
+  /* ===== 教育经历时间轴 ===== */
+  .timeline { position: relative; }
+  .tl-item { display: grid; grid-template-columns: 110px 28px 1fr; align-items: start; }
+  .tl-time { text-align: right; padding-top: 6px; font-size: 14px; color: var(--muted); line-height: 1.5; }
+  .tl-axis { position: relative; align-self: stretch; min-height: 130px; }
+  .tl-dot { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow: 0 0 0 4px rgba(var(--accent-rgb),0.15); z-index: 1; }
+  .tl-line { position: absolute; top: 8px; bottom: -12px; left: 50%; transform: translateX(-50%); width: 2px; background: linear-gradient(180deg, rgba(var(--accent-rgb),0.6), var(--border)); }
+  .tl-content { padding: 24px 26px; }
+  .tl-content h3 { font-size: 17px; margin-bottom: 4px; }
+  .tl-sub { color: var(--muted); font-size: 14px; }
+  .tl-time-inline { display: none; }
+  .courses-label { font-size: 13px; color: var(--muted); margin: 16px 0 8px; }
+  .tl-courses { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tl-courses span { font-size: 13px; padding: 5px 12px; border-radius: 8px; color: #a7f3ea; background: rgba(var(--accent-rgb),0.10); border: 1px solid rgba(var(--accent-rgb),0.28); }
+
+  /* ===== 兴趣爱好 ===== */
+  .hobby-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .hobby-card { display: flex; flex-direction: column; gap: 10px; }
+  .hobby-icon { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--accent2); background: linear-gradient(135deg, rgba(var(--accent-rgb),0.22), rgba(var(--accent2-rgb),0.22)); }
+  .hobby-icon svg { width: 24px; height: 24px; }
+  .hobby-card h3 { font-size: 16px; }
+  .hobby-card p { color: var(--muted); font-size: 14px; }
+
+  /* ===== 项目职责与收获 ===== */
+  .role-block { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; }
+  .role-line { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .role-label { display: inline-block; font-size: 12px; color: var(--accent2); margin-right: 8px; padding: 2px 8px; border-radius: 6px; background: rgba(var(--accent2-rgb),0.12); white-space: nowrap; }
+
+  /* ===== 新增板块响应式 ===== */
+  @media (max-width: 640px) {
+    .tl-item { grid-template-columns: 24px 1fr; }
+    .tl-time { display: none; }
+    .tl-time-inline { display: block; color: var(--muted); font-size: 13px; margin-bottom: 8px; }
+    .tl-axis { min-height: 0; }
+    .hobby-grid { grid-template-columns: 1fr; }
+  }
+
   /* ===== 滚动渐入（渐进增强，无 JS 时内容正常显示）===== */
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
   .reveal.visible { opacity: 1; transform: none; }
@@ -233,8 +270,10 @@
     <div class="logo">HM<span>.DEV</span></div>
     <div>
       <a href="#about">关于</a>
+      <a href="#education">教育</a>
       <a href="#skills">技能</a>
       <a href="#projects">项目</a>
+      <a href="#hobbies">爱好</a>
       <a href="#contact">联系</a>
     </div>
   </div>
@@ -266,8 +305,35 @@
       </p>
       <div class="stats">
         <div class="stat"><div class="num">2+</div><div class="label">在校年限</div></div>
-        <div class="stat"><div class="num">8+</div><div class="label">技术标签</div></div>
+        <div class="stat"><div class="num">7+</div><div class="label">技术标签</div></div>
         <div class="stat"><div class="num">∞</div><div class="label">学习热情</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education" class="reveal">
+  <div class="container">
+    <h2>教育经历</h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-time">2025.09<br>至今</div>
+        <div class="tl-axis">
+          <span class="tl-dot"></span>
+          <span class="tl-line"></span>
+        </div>
+        <div class="tl-content card">
+          <span class="tl-time-inline">2025.09 至今</span>
+          <h3>武汉理工大学 · 本科</h3>
+          <p class="tl-sub">数字经济（人工智能方向）</p>
+          <p class="courses-label">核心课程</p>
+          <div class="tl-courses">
+            <span>微观经济学</span>
+            <span>人工智能导论</span>
+            <span>数据库系统</span>
+            <span>程序设计基础</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -284,7 +350,6 @@
       <div class="skill">Vite / TypeScript</div>
       <div class="skill">Vibe Coding</div>
       <div class="skill">微观经济学</div>
-      <div class="skill">数理统计</div>
     </div>
   </div>
 </section>
@@ -297,19 +362,65 @@
         <h3>HMC健康管理系统</h3>
         <p>全栈健康管理应用：Node.js + Express + SQLite 构建，实现用户注册登录、每日体重体脂打卡、BMI与基础代谢自动计算、目标管理与达标预估、AI健康分析与个性化建议。</p>
         <div class="tags"><span>Node.js</span><span>Express</span><span>SQLite</span><span>ECharts</span></div>
+        <div class="role-block">
+          <div class="role-line"><span class="role-label">个人职责</span>独立完成需求分析、数据库设计与前后端开发。</div>
+          <div class="role-line"><span class="role-label">项目收获</span>跑通全栈开发完整链路，掌握 Node.js 服务搭建、SQLite 数据建模与 ECharts 数据可视化。</div>
+        </div>
         <a href="https://hmc-card.app.workbuddy.host/?sharecode=YSNSHSFN2C" target="_blank" rel="noopener noreferrer" class="project-link">查看项目 →</a>
       </div>
       <div class="project">
         <h3>个人待办事项管理系统</h3>
         <p>数智编程课程全栈实战：基于 HTML/CSS/JS + Supabase 构建，实现邮箱注册登录、待办增删改查、优先级与截止日期，使用 RLS 行级安全策略实现用户数据隔离。</p>
         <div class="tags"><span>HTML/CSS/JS</span><span>Supabase</span><span>PostgreSQL</span></div>
+        <div class="role-block">
+          <div class="role-line"><span class="role-label">个人职责</span>负责前端交互与 Supabase 数据层设计，配置 RLS 行级安全策略。</div>
+          <div class="role-line"><span class="role-label">项目收获</span>理解 BaaS 开发模式与用户数据隔离机制，掌握静态页面的云端部署。</div>
+        </div>
         <a href="https://hmc-hue.github.io/todo-app/" target="_blank" rel="noopener noreferrer" class="project-link">查看项目 →</a>
       </div>
       <div class="project">
         <h3>个人数字名片网站</h3>
         <p>基于 Vibe Coding 流程完成的个人主页，从需求对齐、代码生成到云端部署完整实战，即本页面。响应式深色主题，单文件交付。</p>
         <div class="tags"><span>HTML/CSS</span><span>响应式</span><span>GitHub Pages</span></div>
+        <div class="role-block">
+          <div class="role-line"><span class="role-label">个人职责</span>独立完成页面设计、编码与云端部署。</div>
+          <div class="role-line"><span class="role-label">项目收获</span>掌握响应式布局、无障碍设计与 GitHub Pages 静态部署流程。</div>
+        </div>
         <a href="#top" class="project-link">就是本页 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="hobbies" class="reveal">
+  <div class="container">
+    <h2>兴趣爱好</h2>
+    <div class="hobby-grid">
+      <div class="hobby-card card">
+        <div class="hobby-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="5" r="2.5"/>
+            <path d="M10 7 7.5 19"/>
+            <path d="M14 7 16.5 19"/>
+            <path d="M12 7.5V19"/>
+            <path d="M8.8 14h6.4"/>
+          </svg>
+        </div>
+        <h3>羽毛球</h3>
+        <p>学习之余常和同学约球，在运动中放松身心、保持专注。</p>
+      </div>
+      <div class="hobby-card card">
+        <div class="hobby-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.4 14.4 9.6 9.6"/>
+            <path d="M18.657 21.485a2 2 0 1 1-2.829-2.828l-1.767 1.768a2 2 0 1 1-2.829-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.767a2 2 0 1 1 2.828 2.829z"/>
+            <path d="m21.5 21.5-1.4-1.4"/>
+            <path d="M3.9 3.9 2.5 2.5"/>
+            <path d="M6.404 12.768a2 2 0 1 1-2.829-2.829l1.768-1.767a2 2 0 1 1-2.828-2.829l2.828-2.828a2 2 0 1 1 2.829 2.828l1.767-1.768a2 2 0 1 1 2.829 2.829z"/>
+          </svg>
+        </div>
+        <h3>健身</h3>
+        <p>近期开始系统健身，坚持规律训练，逐步提升身体素质。</p>
       </div>
     </div>
   </div>
