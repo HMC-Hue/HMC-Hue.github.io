@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="韩牧宸的个人数字名片 —— 武汉理工大学数字经济（人工智能方向）学生，专注全栈开发与人工智能应用，Vibe Coding 实践者。" />
+<meta name="theme-color" content="#06100f" />
+<title>韩牧宸 · 个人数字名片</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #06100f;
+    --card: rgba(255, 255, 255, 0.04);
+    --border: rgba(255, 255, 255, 0.08);
+    --text: #f2f7f6;
+    --muted: #93a5a1;
+    --accent: #14b8a6;
+    --accent2: #22d3ee;
+    --accent-rgb: 20, 184, 166;
+    --accent2-rgb: 34, 211, 238;
+    --ease: cubic-bezier(.22, .68, .36, 1);
+  }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  .bg-glow {
+    position: fixed; inset: 0; z-index: -1;
+    background:
+      radial-gradient(600px 400px at 20% 10%, rgba(var(--accent-rgb),0.20), transparent 60%),
+      radial-gradient(600px 400px at 85% 80%, rgba(var(--accent2-rgb),0.14), transparent 60%);
+  }
+  .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    backdrop-filter: blur(12px);
+    background: rgba(6,16,15,0.72);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .container { display: flex; justify-content: space-between; align-items: center; height: 64px; }
+  nav .logo { font-weight: 700; font-size: 15px; letter-spacing: 1px; }
+  nav .logo span { background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  nav a { color: var(--muted); text-decoration: none; margin-left: 20px; font-size: 14px; transition: color .2s; }
+  nav a:hover { color: var(--accent2); }
+
+  section { padding: 80px 0; }
+
+  .hero { padding: 100px 0 60px; text-align: center; }
+  .avatar {
+    width: 120px; height: 120px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 42px; font-weight: 700; color: #fff;
+    margin: 0 auto 24px;
+    box-shadow: 0 10px 40px rgba(var(--accent-rgb),0.45);
+    transition: transform .35s var(--ease), box-shadow .35s var(--ease);
+  }
+  .avatar:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 16px 52px rgba(var(--accent-rgb),0.6);
+  }
+  .hero h1 { font-size: 44px; font-weight: 800; letter-spacing: 1px; }
+  .hero .title { color: var(--muted); margin-top: 10px; font-size: 17px; }
+  .hero .tagline {
+    max-width: 560px; margin: 24px auto 0; color: var(--text);
+    font-size: 16px; opacity: .85;
+  }
+  .hero .badges { margin-top: 28px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .badge {
+    padding: 6px 14px; border-radius: 999px; font-size: 13px;
+    background: var(--card); border: 1px solid var(--border); color: var(--muted);
+    transition: transform .3s var(--ease), color .3s, border-color .3s, background .3s;
+  }
+  .badge:hover {
+    transform: translateY(-3px);
+    color: var(--accent2);
+    border-color: rgba(var(--accent-rgb),0.45);
+    background: rgba(var(--accent-rgb),0.10);
+  }
+
+  h2 { font-size: 28px; margin-bottom: 24px; }
+  h2::before {
+    content: ""; display: inline-block; width: 4px; height: 20px;
+    background: linear-gradient(180deg, var(--accent), var(--accent2));
+    border-radius: 2px; margin-right: 10px; vertical-align: -3px;
+  }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px;
+    transition: transform .35s var(--ease), border-color .35s, box-shadow .35s, background .35s;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(var(--accent-rgb),0.35);
+    background: rgba(255,255,255,0.055);
+    box-shadow: 0 18px 46px rgba(0,0,0,0.42), 0 0 0 1px rgba(var(--accent-rgb),0.10);
+  }
+  .about p { color: var(--muted); }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+  .stat {
+    text-align: center; padding: 16px; background: var(--card);
+    border: 1px solid var(--border); border-radius: 12px;
+    transition: transform .3s var(--ease), border-color .3s, background .3s, box-shadow .3s;
+  }
+  .stat:hover {
+    transform: translateY(-4px) scale(1.02);
+    border-color: rgba(var(--accent-rgb),0.4);
+    background: rgba(var(--accent-rgb),0.08);
+    box-shadow: 0 10px 28px rgba(var(--accent-rgb),0.16);
+  }
+  .stat .num { font-size: 26px; font-weight: 700; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .stat .label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  .skills { display: flex; flex-wrap: wrap; gap: 10px; }
+  .skill {
+    padding: 8px 16px; border-radius: 10px; font-size: 14px;
+    background: rgba(var(--accent-rgb),0.10); border: 1px solid rgba(var(--accent-rgb),0.28);
+    color: #a7f3ea;
+    transition: transform .28s var(--ease), background .28s, border-color .28s, box-shadow .28s, color .28s;
+  }
+  .skill:hover {
+    transform: translateY(-4px) rotate(-1deg);
+    background: rgba(var(--accent-rgb),0.20);
+    border-color: rgba(var(--accent2-rgb),0.55);
+    color: #ffffff;
+    box-shadow: 0 8px 22px rgba(var(--accent-rgb),0.28);
+  }
+
+  .projects { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .project {
+    position: relative; overflow: hidden;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 24px;
+    transition: transform .35s var(--ease), border-color .35s, box-shadow .35s, background .35s;
+  }
+  .project::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .4s var(--ease);
+  }
+  .project:hover {
+    transform: translateY(-6px);
+    border-color: rgba(var(--accent-rgb),0.45);
+    background: rgba(255,255,255,0.06);
+    box-shadow: 0 20px 44px rgba(0,0,0,0.45), 0 0 30px rgba(var(--accent-rgb),0.14);
+  }
+  .project:hover::before { transform: scaleX(1); }
+  .project h3 { font-size: 17px; margin-bottom: 8px; }
+  .project p { color: var(--muted); font-size: 14px; }
+  .project .tags { margin-top: 14px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .project .tags span { font-size: 12px; color: var(--muted); padding: 3px 10px; border-radius: 6px; background: rgba(255,255,255,0.05); }
+  .project-link { display: inline-block; margin-top: 16px; font-size: 13px; color: var(--accent2); text-decoration: none; transition: opacity .2s; }
+  .project-link:hover { opacity: .8; text-decoration: underline; }
+
+  .contact-list { display: flex; flex-direction: column; gap: 12px; }
+  .contact-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 20px; background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; text-decoration: none; color: var(--text);
+    transition: transform .32s var(--ease), border-color .32s, background .32s, box-shadow .32s;
+  }
+  .contact-item:hover {
+    transform: translateX(6px);
+    border-color: rgba(var(--accent-rgb),0.5);
+    background: rgba(var(--accent-rgb),0.08);
+    box-shadow: 0 10px 26px rgba(0,0,0,0.35);
+  }
+  .contact-item .icon {
+    width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+    background: linear-gradient(135deg, rgba(var(--accent-rgb),0.22), rgba(var(--accent2-rgb),0.22));
+    display: flex; align-items: center; justify-content: center; font-size: 18px;
+    transition: transform .32s var(--ease);
+  }
+  .contact-item:hover .icon {
+    transform: scale(1.12) rotate(-6deg);
+  }
+  .contact-item .meta small { display: block; color: var(--muted); font-size: 12px; }
+  .contact-item .meta strong { font-size: 14px; font-weight: 500; }
+
+  footer { text-align: center; padding: 40px 0; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); }
+
+  /* ===== 教育经历时间轴 ===== */
+  .timeline { position: relative; }
+  .tl-item { display: grid; grid-template-columns: 110px 28px 1fr; align-items: start; }
+  .tl-time { text-align: right; padding-top: 6px; font-size: 14px; color: var(--muted); line-height: 1.5; }
+  .tl-axis { position: relative; align-self: stretch; min-height: 130px; }
+  .tl-dot { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow: 0 0 0 4px rgba(var(--accent-rgb),0.15); z-index: 1; }
+  .tl-line { position: absolute; top: 8px; bottom: -12px; left: 50%; transform: translateX(-50%); width: 2px; background: linear-gradient(180deg, rgba(var(--accent-rgb),0.6), var(--border)); }
+  .tl-content { padding: 24px 26px; }
+  .tl-content h3 { font-size: 17px; margin-bottom: 4px; }
+  .tl-sub { color: var(--muted); font-size: 14px; }
+  .tl-time-inline { display: none; }
+  .courses-label { font-size: 13px; color: var(--muted); margin: 16px 0 8px; }
+  .tl-courses { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tl-courses span { font-size: 13px; padding: 5px 12px; border-radius: 8px; color: #a7f3ea; background: rgba(var(--accent-rgb),0.10); border: 1px solid rgba(var(--accent-rgb),0.28); }
+
+  /* ===== 兴趣爱好 ===== */
+  .hobby-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .hobby-card { display: flex; flex-direction: column; gap: 10px; }
+  .hobby-icon { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--accent2); background: linear-gradient(135deg, rgba(var(--accent-rgb),0.22), rgba(var(--accent2-rgb),0.22)); }
+  .hobby-icon svg { width: 24px; height: 24px; }
+  .hobby-card h3 { font-size: 16px; }
+  .hobby-card p { color: var(--muted); font-size: 14px; }
+
+  /* ===== 项目职责与收获 ===== */
+  .role-block { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; }
+  .role-line { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .role-label { display: inline-block; font-size: 12px; color: var(--accent2); margin-right: 8px; padding: 2px 8px; border-radius: 6px; background: rgba(var(--accent2-rgb),0.12); white-space: nowrap; }
+
+  /* ===== 新增板块响应式 ===== */
+  @media (max-width: 640px) {
+    .tl-item { grid-template-columns: 24px 1fr; }
+    .tl-time { display: none; }
+    .tl-time-inline { display: block; color: var(--muted); font-size: 13px; margin-bottom: 8px; }
+    .tl-axis { min-height: 0; }
+    .hobby-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== 滚动渐入（渐进增强，无 JS 时内容正常显示）===== */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ===== 可访问性：键盘焦点态 ===== */
+  a:focus-visible,
+  .contact-item:focus-visible,
+  .project-link:focus-visible {
+    outline: 2px solid var(--accent2);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  /* ===== 可访问性：尊重减少动效偏好 ===== */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 32px; }
+    .projects { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    nav a { margin-left: 12px; font-size: 13px; }
+    section { padding: 56px 0; }
+  }
+
+  @media (max-width: 380px) {
+    .container { padding: 0 16px; }
+    nav a { margin-left: 8px; font-size: 12px; }
+    .hero h1 { font-size: 28px; }
+    .avatar { width: 100px; height: 100px; font-size: 36px; }
+  }
+</style>
+</head>
+<body id="top">
+<div class="bg-glow" aria-hidden="true"></div>
+
+<nav aria-label="主导航">
+  <div class="container">
+    <div class="logo">HM<span>.DEV</span></div>
+    <div>
+      <a href="#about">关于</a>
+      <a href="#education">教育</a>
+      <a href="#skills">技能</a>
+      <a href="#projects">项目</a>
+      <a href="#hobbies">爱好</a>
+      <a href="#contact">联系</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <div class="avatar">韩</div>
+    <h1>韩牧宸</h1>
+    <p class="title">武汉理工大学 · 数字经济（人工智能方向）· 大二</p>
+    <p class="tagline">
+      正在用 Vibe Coding 把想法变成产品的数字经济学生。专注全栈开发与人工智能应用，相信代码是新时代的普通话。
+    </p>
+    <div class="badges">
+      <span class="badge">#Python</span>
+      <span class="badge">#Supabase</span>
+      <span class="badge">#Vibe Coding</span>
+    </div>
+  </div>
+</header>
+
+<section id="about" class="about reveal">
+  <div class="container">
+    <h2>关于我</h2>
+    <div class="card">
+      <p>
+        我是韩牧宸，武汉理工大学数字经济专业（人工智能方向）学生。身处数字经济与人工智能的交叉路口，我既懂业务逻辑，也在持续补齐工程开发能力。
+        目前正在系统学习数据库与全栈开发，并通过 Vibe Coding 实战把课堂知识落地为真正可运行的产品。
+      </p>
+      <div class="stats">
+        <div class="stat"><div class="num">2+</div><div class="label">在校年限</div></div>
+        <div class="stat"><div class="num">7+</div><div class="label">技术标签</div></div>
+        <div class="stat"><div class="num">∞</div><div class="label">学习热情</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education" class="reveal">
+  <div class="container">
+    <h2>教育经历</h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-time">2025.09<br>至今</div>
+        <div class="tl-axis">
+          <span class="tl-dot"></span>
+          <span class="tl-line"></span>
+        </div>
+        <div class="tl-content card">
+          <span class="tl-time-inline">2025.09 至今</span>
+          <h3>武汉理工大学 · 本科</h3>
+          <p class="tl-sub">数字经济（人工智能方向）</p>
+          <p class="courses-label">核心课程</p>
+          <div class="tl-courses">
+            <span>微观经济学</span>
+            <span>人工智能导论</span>
+            <span>数据库系统</span>
+            <span>程序设计基础</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="reveal">
+  <div class="container">
+    <h2>技能栈</h2>
+    <div class="skills">
+      <div class="skill">Python</div>
+      <div class="skill">SQL / 数据库</div>
+      <div class="skill">Supabase 全栈</div>
+      <div class="skill">React</div>
+      <div class="skill">Vite / TypeScript</div>
+      <div class="skill">Vibe Coding</div>
+      <div class="skill">微观经济学</div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="reveal">
+  <div class="container">
+    <h2>项目经历</h2>
+    <div class="projects">
+      <div class="project">
+        <h3>HMC健康管理系统</h3>
+        <p>全栈健康管理应用：Node.js + Express + SQLite 构建，实现用户注册登录、每日体重体脂打卡、BMI与基础代谢自动计算、目标管理与达标预估、AI健康分析与个性化建议。</p>
+        <div class="tags"><span>Node.js</span><span>Express</span><span>SQLite</span><span>ECharts</span></div>
+        <div class="role-block">
+          <div class="role-line"><span class="role-label">个人职责</span>独立完成需求分析、数据库设计与前后端开发。</div>
+          <div class="role-line"><span class="role-label">项目收获</span>跑通全栈开发完整链路，掌握 Node.js 服务搭建、SQLite 数据建模与 ECharts 数据可视化。</div>
+        </div>
+        <a href="https://hmc-card.app.workbuddy.host/?sharecode=YSNSHSFN2C" target="_blank" rel="noopener noreferrer" class="project-link">查看项目 →</a>
+      </div>
+      <div class="project">
+        <h3>个人待办事项管理系统</h3>
+        <p>数智编程课程全栈实战：基于 HTML/CSS/JS + Supabase 构建，实现邮箱注册登录、待办增删改查、优先级与截止日期，使用 RLS 行级安全策略实现用户数据隔离。</p>
+        <div class="tags"><span>HTML/CSS/JS</span><span>Supabase</span><span>PostgreSQL</span></div>
+        <div class="role-block">
+          <div class="role-line"><span class="role-label">个人职责</span>负责前端交互与 Supabase 数据层设计，配置 RLS 行级安全策略。</div>
+          <div class="role-line"><span class="role-label">项目收获</span>理解 BaaS 开发模式与用户数据隔离机制，掌握静态页面的云端部署。</div>
+        </div>
+        <a href="https://hmc-hue.github.io/todo-app/" target="_blank" rel="noopener noreferrer" class="project-link">查看项目 →</a>
+      </div>
+      <div class="project">
+        <h3>个人数字名片网站</h3>
+        <p>基于 Vibe Coding 流程完成的个人主页，从需求对齐、代码生成到云端部署完整实战，即本页面。响应式深色主题，单文件交付。</p>
+        <div class="tags"><span>HTML/CSS</span><span>响应式</span><span>GitHub Pages</span></div>
+        <div class="role-block">
+          <div class="role-line"><span class="role-label">个人职责</span>独立完成页面设计、编码与云端部署。</div>
+          <div class="role-line"><span class="role-label">项目收获</span>掌握响应式布局、无障碍设计与 GitHub Pages 静态部署流程。</div>
+        </div>
+        <a href="#top" class="project-link">就是本页 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="hobbies" class="reveal">
+  <div class="container">
+    <h2>兴趣爱好</h2>
+    <div class="hobby-grid">
+      <div class="hobby-card card">
+        <div class="hobby-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="5" r="2.5"/>
+            <path d="M10 7 7.5 19"/>
+            <path d="M14 7 16.5 19"/>
+            <path d="M12 7.5V19"/>
+            <path d="M8.8 14h6.4"/>
+          </svg>
+        </div>
+        <h3>羽毛球</h3>
+        <p>学习之余常和同学约球，在运动中放松身心、保持专注。</p>
+      </div>
+      <div class="hobby-card card">
+        <div class="hobby-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.4 14.4 9.6 9.6"/>
+            <path d="M18.657 21.485a2 2 0 1 1-2.829-2.828l-1.767 1.768a2 2 0 1 1-2.829-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.767a2 2 0 1 1 2.828 2.829z"/>
+            <path d="m21.5 21.5-1.4-1.4"/>
+            <path d="M3.9 3.9 2.5 2.5"/>
+            <path d="M6.404 12.768a2 2 0 1 1-2.829-2.829l1.768-1.767a2 2 0 1 1-2.828-2.829l2.828-2.828a2 2 0 1 1 2.829 2.828l1.767-1.768a2 2 0 1 1 2.829 2.829z"/>
+          </svg>
+        </div>
+        <h3>健身</h3>
+        <p>近期开始系统健身，坚持规律训练，逐步提升身体素质。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="reveal">
+  <div class="container">
+    <h2>联系我</h2>
+    <div class="contact-list">
+      <a class="contact-item" href="mailto:1304069948@qq.com">
+        <div class="icon" aria-hidden="true">✉️</div>
+        <div class="meta"><small>QQ邮箱</small><strong>1304069948@qq.com</strong></div>
+      </a>
+      <a class="contact-item" href="https://github.com/HMC-Hue" target="_blank" rel="noopener noreferrer">
+        <div class="icon" aria-hidden="true">🐙</div>
+        <div class="meta"><small>GitHub</small><strong>github.com/HMC-Hue</strong></div>
+      </a>
+      <a class="contact-item" href="https://www.whut.edu.cn" target="_blank" rel="noopener noreferrer">
+        <div class="icon" aria-hidden="true">🎓</div>
+        <div class="meta"><small>学校专业</small><strong>武汉理工大学 · 数字经济（人工智能方向）</strong></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    © 2026 韩牧宸 · Made with Vibe Coding · 武汉理工大学
+  </div>
+</footer>
+
+<script>
+  // 滚动渐入：仅作为视觉增强，无 JS 时内容仍正常可见
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+</script>
+
+</body>
+</html>

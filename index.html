@@ -214,6 +214,15 @@
   .role-line { font-size: 13px; color: var(--muted); line-height: 1.6; }
   .role-label { display: inline-block; font-size: 12px; color: var(--accent2); margin-right: 8px; padding: 2px 8px; border-radius: 6px; background: rgba(var(--accent2-rgb),0.12); white-space: nowrap; }
 
+  /* ===== 核心亮点 ===== */
+  .highlights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 44px; }
+  .hl-card { padding: 18px 16px; border-radius: 14px; background: var(--card); border: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; align-items: flex-start; transition: transform .3s var(--ease), border-color .3s, background .3s; }
+  .hl-card:hover { transform: translateY(-4px); border-color: rgba(var(--accent-rgb),0.4); background: rgba(255,255,255,0.055); }
+  .hl-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--accent2); background: linear-gradient(135deg, rgba(var(--accent-rgb),0.22), rgba(var(--accent2-rgb),0.22)); }
+  .hl-icon svg { width: 20px; height: 20px; }
+  .hl-card strong { font-size: 14px; }
+  .hl-card p { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+
   /* ===== 新增板块响应式 ===== */
   @media (max-width: 640px) {
     .tl-item { grid-template-columns: 24px 1fr; }
@@ -221,6 +230,7 @@
     .tl-time-inline { display: block; color: var(--muted); font-size: 13px; margin-bottom: 8px; }
     .tl-axis { min-height: 0; }
     .hobby-grid { grid-template-columns: 1fr; }
+    .highlights { grid-template-columns: 1fr; gap: 10px; }
   }
 
   /* ===== 滚动渐入（渐进增强，无 JS 时内容正常显示）===== */
@@ -291,6 +301,29 @@
       <span class="badge">#Python</span>
       <span class="badge">#Supabase</span>
       <span class="badge">#Vibe Coding</span>
+    </div>
+    <div class="highlights">
+      <div class="hl-card">
+        <span class="hl-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </span>
+        <strong>3 个在线实战项目</strong>
+        <p>全部可通过链接直接访问体验。</p>
+      </div>
+      <div class="hl-card">
+        <span class="hl-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        </span>
+        <strong>全栈开发能力</strong>
+        <p>覆盖前端、后端与数据库的完整流程。</p>
+      </div>
+      <div class="hl-card">
+        <span class="hl-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        </span>
+        <strong>坚持动手实践</strong>
+        <p>把课堂知识落地为可运行的产品。</p>
+      </div>
     </div>
   </div>
 </header>
