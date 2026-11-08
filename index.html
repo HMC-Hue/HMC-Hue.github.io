@@ -158,6 +158,9 @@
   .project .tags span { font-size: 12px; color: var(--muted); padding: 3px 10px; border-radius: 6px; background: rgba(255,255,255,0.05); }
   .project-link { display: inline-block; margin-top: 16px; font-size: 13px; color: var(--accent2); text-decoration: none; transition: opacity .2s; }
   .project-link:hover { opacity: .8; text-decoration: underline; }
+  .project-link-row { display: flex; gap: 18px; align-items: center; margin-top: 16px; flex-wrap: wrap; }
+  .project-link-row .project-link { margin-top: 0; }
+  .project-link-ghost { color: var(--muted); }
 
   .contact-list { display: flex; flex-direction: column; gap: 12px; }
   .contact-item {
@@ -449,7 +452,10 @@
           <div class="role-line"><span class="role-label">个人职责</span>独立完成页面开发、本地存储设计与预算功能扩展。</div>
           <div class="role-line"><span class="role-label">项目收获</span>掌握小程序原生语法与页面路由，理解数据校验、状态管理与本地存储方案。</div>
         </div>
-        <a href="https://github.com/HMC-Hue/accounting-miniprogram" target="_blank" rel="noopener noreferrer" class="project-link">查看源码 →</a>
+        <div class="project-link-row">
+          <a href="accounting/index.html" class="project-link">在线试玩 →</a>
+          <a href="https://github.com/HMC-Hue/accounting-miniprogram" target="_blank" rel="noopener noreferrer" class="project-link project-link-ghost">查看源码</a>
+        </div>
       </div>
     </div>
   </div>

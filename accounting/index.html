@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f4f5f7">
+<title>小账本 · 记账 Demo</title>
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+
+<div class="app">
+  <header class="app-bar">
+    <div class="app-title">小账本</div>
+    <div class="app-note">数据只存在你的浏览器</div>
+  </header>
+
+  <main id="view" class="view"></main>
+
+  <nav class="tabbar" id="tabbar">
+    <button class="tab" data-view="home" type="button">
+      <svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 6h16M4 12h16M4 18h10" />
+      </svg>
+      <span class="tab-label">账本</span>
+    </button>
+    <button class="tab" data-view="add" type="button">
+      <svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 5v14M5 12h14" />
+      </svg>
+      <span class="tab-label">记一笔</span>
+    </button>
+    <button class="tab" data-view="report" type="button">
+      <svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6 18V10M12 18V6M18 18v-5" />
+      </svg>
+      <span class="tab-label">报表</span>
+    </button>
+  </nav>
+</div>
+
+<script src="utils/money.js"></script>
+<script src="utils/categories.js"></script>
+<script src="utils/stats.js"></script>
+<script src="utils/store.js"></script>
+<script src="utils/exporter.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
