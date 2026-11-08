@@ -367,6 +367,27 @@
     writeMeta({ schema: SCHEMA, seeded: true });
   }
 
+  /**
+   * 整体替换记录，导入时用。
+   * 顺带把 seeded 钉成 true：导进来的数据覆盖了示例数据，不能再让它回填。
+   */
+  function replaceAll(records) {
+    var list = (records || []).map(function (r) {
+      return {
+        id: String(r.id || genId()),
+        amount: Math.round(Number(r.amount) || 0),
+        type: r.type === 'income' ? 'income' : 'expense',
+        category: r.category || '其他',
+        note: r.note || '',
+        date: r.date || '',
+        createdAt: Number(r.createdAt) || Date.now()
+      };
+    });
+    var ok = persistRecords(list);
+    writeMeta({ schema: SCHEMA, seeded: true });
+    return ok;
+  }
+
   /* ------------------------------------------------------------------ *
    * 预算（按月，单位分）
    * ------------------------------------------------------------------ */
@@ -411,6 +432,7 @@
     deleteRecord: deleteRecord,
     restoreRecord: restoreRecord,
     clearAll: clearAll,
+    replaceAll: replaceAll,
     getBudget: getBudget,
     setBudget: setBudget,
     clearBudget: clearBudget

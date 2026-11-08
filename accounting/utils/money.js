@@ -55,6 +55,8 @@
    */
   function parseInput(text) {
     var raw = String(text === null || text === undefined ? '' : text).trim();
+    // 「12.」这种正在输入中的状态，按「12」处理
+    raw = raw.replace(/\.$/, '');
     if (!raw) return { ok: false, cents: 0, reason: 'empty' };
     if (!/^(?:\d+(?:\.\d{1,2})?|\.\d{1,2})$/.test(raw)) {
       return { ok: false, cents: 0, reason: 'format' };
@@ -63,6 +65,23 @@
     if (!isFinite(cents) || cents <= 0) return { ok: false, cents: 0, reason: 'positive' };
     if (cents > MAX_CENTS) return { ok: false, cents: 0, reason: 'tooLarge' };
     return { ok: true, cents: cents, reason: '' };
+  }
+
+  /**
+   * 输入时实时清洗：只留数字和一个小数点，小数最多两位，整数最多八位。
+   *
+   * 微信的 digit 键盘在部分安卓机型上能敲出多个小数点（1.2.3），
+   * 不拦的话要等到点保存才报错，体验很差。
+   */
+  function sanitizeInput(text) {
+    var raw = String(text === null || text === undefined ? '' : text).replace(/[^\d.]/g, '');
+    var dot = raw.indexOf('.');
+
+    if (dot === -1) return raw.slice(0, 8);
+
+    var intPart = raw.slice(0, dot).slice(0, 8);
+    var decPart = raw.slice(dot + 1).replace(/\./g, '').slice(0, 2);
+    return intPart + '.' + decPart;
   }
 
   /**
@@ -110,6 +129,7 @@
     MAX_CENTS: MAX_CENTS,
     toCents: toCents,
     parseInput: parseInput,
+    sanitizeInput: sanitizeInput,
     format: format,
     formatAbs: formatAbs,
     errorText: errorText

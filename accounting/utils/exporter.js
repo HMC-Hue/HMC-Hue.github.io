@@ -75,11 +75,24 @@
     return '账本-' + year + '-' + String(month).padStart(2, '0') + '.csv';
   }
 
+  /** 账本备份-20261108.csv（整库备份用，带日期便于区分） */
+  function backupFileName(date) {
+    var d = date || new Date();
+    return (
+      '账本备份-' +
+      d.getFullYear() +
+      String(d.getMonth() + 1).padStart(2, '0') +
+      String(d.getDate()).padStart(2, '0') +
+      '.csv'
+    );
+  }
+
   return {
     BOM: BOM,
     HEADER: HEADER,
     escapeCell: escapeCell,
     toCsv: toCsv,
-    fileName: fileName
+    fileName: fileName,
+    backupFileName: backupFileName
   };
 });
